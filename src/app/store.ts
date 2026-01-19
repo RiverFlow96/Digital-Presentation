@@ -9,5 +9,8 @@ export const store = configureStore({
     }
 })
 
+// Tipos derivados del store
+// - RootState: tipo de todo el estado de la aplicación (útil para tipar useSelector)
+// - AppDispatch: tipo del dispatch (útil para tipar useDispatch en helpers)
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

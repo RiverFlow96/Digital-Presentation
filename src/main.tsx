@@ -5,6 +5,9 @@ import App from './App.tsx'
 import { Provider } from 'react-redux'
 import { store } from './app/store.ts'
 
+// Punto de entrada de la aplicación
+// - `Provider` inyecta el store de Redux al árbol de componentes
+// - `StrictMode` ayuda a detectar prácticas inseguras en desarrollo
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <StrictMode>
