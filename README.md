@@ -19,55 +19,67 @@ If you are developing a production application, we recommend updating the config
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    # Digital Presentation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+    Pequeña aplicación en React + TypeScript que muestra información pública de un perfil de GitHub en formato tarjeta.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    ## Tecnologías principales ✅
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    - **React**
+    - **TypeScript**
+    - **Vite**
+    - **Redux Toolkit** (slices para imagen e información)
+    - **React Redux**
+    - **Tailwind CSS**
+    - **lucide-react** (iconos)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    ## Estructura principal 🔧
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    - `src/App.tsx` — Componente principal que monta la tarjeta y pasa la prop `user`.
+    - `src/main.tsx` — Punto de entrada; envuelve la app con `Provider` (Redux).
+    - `src/Components/Image/Image.tsx` — Obtiene `avatar_url` desde GitHub y guarda la URL en `imageSlice`.
+    - `src/Components/Information/Information.tsx` — Obtiene `name`, `mail`, `location` y repositorios; actualiza `informationSlice`.
+    - `src/features/imageSlice_1.ts` — Slice para la URL del avatar.
+    - `src/features/informationSlice_1.ts` — Slice para `name`, `mail`, `location`, `numberOfProjects`.
+    - `src/app/store.ts` — Configuración del store y tipos `RootState` / `AppDispatch`.
+
+    ## Qué incluye ✨
+
+    - Peticiones a la API pública de GitHub (`/users/:username`, `/users/:username/repos`).
+    - Muestra avatar y datos del perfil (nombre, número de repositorios, email, ubicación).
+    - Manejo de valores nulos (`email` / `location`) con fallbacks y render condicional en la UI.
+    - Buenas prácticas con Redux Toolkit (slices, acciones y reducers).
+
+    ## Cómo ejecutar 🧪
+
+    Instala dependencias y arranca el servidor de desarrollo:
+
+    ```bash
+    npm install
+    npm run dev
+    # o con bun
+    bun install
+    bun run dev
+    ```
+
+    Abre `http://localhost:5173` (por defecto) y verás la tarjeta con la información del usuario configurado.
+
+    ## Notas importantes ⚠️
+
+    - La API de GitHub devuelve `email` y `location` como `null` si el usuario los oculta en su perfil público. En esos casos la UI muestra `No disponible`.
+    - Para cambiar el usuario mostrado edita la prop `user` en `src/App.tsx` (ej.: `user={'RiverFlow96'}`).
+    - Si deseas más robustez, considera:
+      - añadir estados de carga y error en los componentes,
+      - limpiar valores del store al desmontar o al cambiar `user`,
+      - añadir tests unitarios para los slices.
+
+    ## Contribuir 🤝
+
+    Pull requests y issues son bienvenidos. Puedes proponer mejoras como:
+
+    - tests, placeholders visuales, o handling de casos extremos.
+    - documentación adicional (`CONTRIBUTING.md`).
+
+    ---
+
+    ¿Quieres que haga un commit con este README actualizado ahora? Puedo hacerlo por ti y/o hacer push al remoto.
