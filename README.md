@@ -50,23 +50,3 @@ bun run dev
 ```
 
 Abre `http://localhost:5173` (por defecto) y verás la tarjeta con la información del usuario configurado.
-
-## Notas importantes
-
-- La API de GitHub devuelve `email` y `location` como `null` si el usuario los oculta en su perfil público. En esos casos la UI muestra `No disponible`.
-- Para cambiar el usuario mostrado edita la prop `user` en `src/App.tsx` (ej.: `user={'RiverFlow96'}`).
-- Si deseas más robustez, considera:
-  - añadir estados de carga y error en los componentes,
-  - limpiar valores del store al desmontar o al cambiar `user`,
-  - añadir tests unitarios para los slices.
-
-## Contribuir
-
-Pull requests y issues son bienvenidos. Puedes proponer mejoras como:
-
-- tests, placeholders visuales, o handling de casos extremos.
-- documentación adicional (`CONTRIBUTING.md`).
-
----
-
-Si quieres, puedo también: añadir secciones de pruebas, un archivo `CONTRIBUTING.md`, o generar un commit con este README actualizado.
